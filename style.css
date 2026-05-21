@@ -1,0 +1,256 @@
+:root {
+  --white: #fff;
+  --pink: #ffbeff;
+  --gray: #dbdbdb;
+  --darkgray: #c3c7cb;
+  --eyes: #000000;
+  --shadow: hsl(268, 100%, 17%);
+  --bg: hsl(268, 100%, 24%);
+}
+
+.pseudo::before,
+.pseudo::after {
+  position: absolute;
+  content: "";
+}
+
+* {
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+#container {
+  width: 10rem;
+  height: 16rem;
+}
+
+.ghost {
+  position: relative;
+}
+
+.ghost .body {
+  width: 10rem;
+  height: 15.5rem;
+  background: var(--white);
+  border-radius: 5rem 5rem 1rem 1rem;
+  box-shadow: inset -1.25rem 0.025rem 0 var(--gray);
+  animation: ghostFloat 2s linear infinite;
+}
+
+.ghost .body .face {
+  position: absolute;
+  top: 4.625rem;
+  left: 3rem;
+}
+
+.ghost .body .face .eyes {
+  width: 1.063rem;
+  height: 1.438rem;
+  background: var(--eyes);
+  border-radius: 50%;
+  animation: eyesBlink 2s linear infinite;
+}
+
+.ghost .body .face .eyes::before {
+  position: absolute;
+  content: "";
+  width: 1.063rem;
+  height: 1.438rem;
+  left: 2.95rem;
+  background: var(--eyes);
+  border-radius: 50%;
+}
+
+.ghost .body .face .blush {
+  position: absolute;
+  top: 1.95rem;
+  right: 0.8rem;
+  width: 1.125rem;
+  height: 1.1325rem;
+  background: var(--pink);
+  border-radius: 50%;
+}
+
+.ghost .body .face .blush::before {
+  position: absolute;
+  content: "";
+  left: 4.625rem;
+  width: 1.125rem;
+  height: 1.1325rem;
+  background: var(--pink);
+  border-radius: 50%;
+}
+
+.ghost .body .line {
+  position: relative;
+  z-index: 3;
+  top: 14rem;
+  width: 8.75rem;
+  height: 1.25rem;
+  background: var(--white);
+}
+
+.ghost .body .bottom {
+  position: absolute;
+  top: 14.25rem;
+}
+
+.ghost .body .bottom .circle {
+  position: absolute;
+  z-index: 2;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--white);
+  border-radius: 0 0 1rem 1rem;
+}
+
+.ghost .body .bottom .circle:nth-child(1) {
+  left: 0;
+}
+
+.ghost .body .bottom .circle:nth-child(2) {
+  left: 2.75rem;
+  border-radius: 1rem;
+}
+
+.ghost .body .bottom .circle:nth-child(3) {
+  left: 5.5rem;
+  border-radius: 1rem;
+}
+
+.ghost .body .bottom .circle:nth-child(4) {
+  left: 8.25rem;
+  box-shadow: inset -1.25rem 0.025rem 0 var(--gray);
+}
+
+.ghost .body .bottom .wave {
+  position: relative;
+  z-index: 1;
+  left: 1.425rem;
+  width: 1.625rem;
+  height: 1.75rem;
+  background: var(--darkgray);
+  border-radius: 1rem;
+  box-shadow: inset 0rem 1rem 0 var(--white);
+}
+
+.ghost .body .bottom .wave::before,
+.ghost .body .bottom .wave::after {
+  position: absolute;
+  content: "";
+  left: 2.75rem;
+  width: 1.625rem;
+  height: 1.75rem;
+  background: var(--darkgray);
+  border-radius: 1rem;
+  box-shadow: inset 0rem 1rem 0 var(--white);
+}
+
+.ghost .body .bottom .wave::after {
+  left: 5.5rem;
+}
+
+.ghost .shadow {
+  position: absolute;
+  z-index: -2;
+  top: 18.25rem;
+  width: 10rem;
+  height: 1rem;
+  background: var(--shadow);
+  border-radius: 50%;
+  filter: blur(0.05rem);
+  animation: shadowWidth 2s linear infinite;
+}
+
+.ghost .glow {
+  position: absolute;
+  z-index: -1;
+  top: -0.625rem;
+  left: -0.5rem;
+  width: 11rem;
+  height: 17rem;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--white),
+    var(--white) 40%,
+    var(--white) 50%
+  );
+  border-radius: 5rem 5rem 1rem 1rem;
+  opacity: 0.3625;
+  filter: blur(1.125rem);
+  animation: ghostFloat 2s linear infinite, glowBlur 2s linear infinite;
+}
+
+@supports (display: grid) {
+  body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.625rem;
+    grid-template-areas: ". main main ." ". main main .";
+  }
+
+  #container {
+    grid-area: main;
+    align-self: center;
+    justify-self: center;
+  }
+}
+
+@keyframes ghostFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1rem);
+  }
+}
+
+@keyframes eyesBlink {
+  0%,
+  30%,
+  38%,
+  100% {
+    transform: scale(1);
+  }
+  34%,
+  36% {
+    transform: scale(1, 0);
+  }
+}
+
+@keyframes shadowWidth {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8, 1);
+  }
+}
+
+@keyframes glowBlur {
+  0%,
+  50%,
+  100% {
+    opacity: 0.3625;
+    filter: blur(1.125rem);
+  }
+  25%,
+  75% {
+    opacity: 0.25;
+    filter: blur(0.85rem);
+  }
+}
